@@ -1,0 +1,41 @@
+﻿@model EntityLayer.Concrete.Blog
+@{
+    ViewData["Title"] = "EditBlog";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<h1>EditBlog</h1>
+<br />
+@using (Html.BeginForm("EditBlog", "Blog", FormMethod.Post))
+{
+  
+    @Html.HiddenFor(x => x.BlogID, new { @class = "form-control readonly" })
+    @Html.HiddenFor(x => x.BlogID)
+    @Html.HiddenFor(x => x.BlogStatus)
+    @Html.HiddenFor(x => x.WriterID)
+    @Html.HiddenFor(x => x.BlogCreateDate)
+    <br />
+    @Html.Label("Blog Başlığı")
+    @Html.TextBoxFor(x => x.BlogTitle, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.BlogTitle, "", new { @style = "color:red" })
+    <br />
+    @Html.Label("Blog Thumbnail URL")
+    @Html.TextBoxFor(x => x.BlogThumbnailImage, new { @class = "form-control" })
+    <br />
+    @Html.Label("Blog Görsel")
+    @Html.TextBoxFor(x => x.BlogImage, new { @class = "form-control" })
+    <br />
+    @Html.Label("Blog Kategori")
+    @Html.DropDownListFor(x => x.CategoryID, (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control" })
+    <br />
+    @Html.Label("Blog İçeriği")
+    @Html.TextBoxFor(x => x.BlogContent, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.BlogContent, "", new { @style = "color:red" })
+    <br />
+    <br />
+
+    <button class="btn btn-outline-info">Güncelle</button>
+
+
+}
+

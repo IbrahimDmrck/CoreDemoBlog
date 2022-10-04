@@ -1,0 +1,92 @@
+﻿@using EntityLayer.Concrete
+@model List<Blog>
+
+
+@{
+    ViewData["Title"] = "BlogListByWriter";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Yazarın Blogları</h4>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Blog Başlığı</th>
+                        <th>Oluşturulma Tarihi</th>
+                        <th>Kategori</th>
+                        <th>Durum</th>
+                        <th>Sil</th>
+                        <th>Düzenle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><b>@item.BlogID</b></td>
+                            <td>@item.BlogTitle</td>
+                            <td>@(((DateTime) item.BlogCreateDate).ToString("dd.MM.yyyy-HH:mm"))</td>
+                            <td>@item.Category.CategoryName</td>
+                            <td>
+                                @{ if (item.BlogStatus == true)
+                                    {
+
+                                        <label class="badge badge-success text-dark">Blog Yayımda</label>
+                                    }
+                                    else
+                                    {
+                                        <label class="badge badge-danger text-dark">Blog Kaldırıldı</label>
+                                    }
+                                }
+
+                            </td>
+                            <td><a  class="btn btn-sm btn-outline-danger Sil" href="/Blog/DeleteBlog/@item.BlogID"><i class="mdi mdi-trash-can"></i> Sil</a></td>
+                            <td><a class="btn btn-sm btn-outline-warning text-dark" href="/Blog/EditBlog/@item.BlogID"><i class="mdi mdi-keyboard-settings"></i> Düzenle</a></td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br />
+            <a href="/Blog/BlogAdd" class="btn btn-inverse-success">Yeni Blog Oluştur</a>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $('.Sil').click(function (e) {
+        e.preventDefault();
+        var linkURL = $(this).attr("href");
+        Swal.fire({
+            title: 'UYARI!',
+            text: "Blog yazısını silmek istediğinize emin misiniz?",
+            icon: 'warning',
+            showCancelButton: true,
+            showCancelButton: true,
+            confirmButtonColor: '#5CBA6C',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Evet',
+            cancelButtonText: 'Hayır'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = linkURL;
+                Swal.fire(
+                    'Başarılı!',
+                    'Seçilen Blog Silindi .',
+                    'success'
+                )
+            }
+            else if (result.dismiss === Swal.DismissReason.cancel) {
+            }
+        })
+    });
+
+
+
+</script>

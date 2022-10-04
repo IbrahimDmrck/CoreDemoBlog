@@ -1,0 +1,9 @@
+﻿@model IEnumerable<CoreDemo.Models.UserComment>
+
+@foreach (var item in Model)
+{
+    <form>
+        <input type="number" readonly value="@item.ID" />
+        <input type="text" readonly value="@item.Name" />
+    </form>
+}

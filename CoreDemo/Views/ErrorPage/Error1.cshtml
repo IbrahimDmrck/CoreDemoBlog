@@ -1,0 +1,30 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr-TR">
+<head>
+    <meta charset="UTF-8">
+    <title>CodePen - Daily UI#011 | Flash Message (Error/Success)</title>
+    <link rel="stylesheet" href="~/ErrorPage/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+</head>
+<body onload="ornek()">
+
+    <script>function ornek(){
+   document.getElementById("AnaKapsayici").style.transform = "translateY(150px)";
+    }</script>
+
+    <div id="AnaKapsayici">
+        <p class="messageText"> YASAKLI BÖLGEYE GİRMEZSİNİZ !</p>
+        <p class="messageText"> Lütfen Buradan Uzaklaşın .</p>
+        <a role="button" href="/Blog/Index">Geri Dön</a>
+    </div>
+
+
+
+</body>
+</html>

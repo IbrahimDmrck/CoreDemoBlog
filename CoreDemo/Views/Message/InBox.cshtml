@@ -1,0 +1,50 @@
+﻿@using EntityLayer.Concrete
+@model List<Message2>
+@{
+    ViewData["Title"] = "InBox";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Gelen Kutusu</h4>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class=" bg-gradient-danger">
+                            <tr>
+                                <th>#</th>
+                                <th>Konu</th>
+                                <th>Gönderen</th>
+                                <th>Mesaj</th>
+                                <th>Gönderilme Zamanı</th>
+                                <th>Mesajı Aç</th>
+                            </tr>
+                        </thead>
+                        <tbody style="background-color:rgb(164 216 194)">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="bg-gradient-danger"><b>@item.MessageID</b></td>
+                                    <td >@item.Subject </td>
+                                    <td><label class="badge badge-info"> @item.SenderUser.WriterName</label></td>
+                                    <td>@(item.MessageDetails.Length > 25 ? item.MessageDetails.Substring(0, item.MessageDetails.Substring(0,27).LastIndexOf(" "))+"..." : item.MessageDetails + "...") </td>
+                                    <td>
+                                        <label class="badge badge-gradient-dark">@(((DateTime)item.MessageDate).ToString("dd-MM-yyyy"))</label>
+                                    </td>
+                                    <td>
+                                        <a href="/Message/MessageDetails/@item.MessageID" class="btn btn-sm btn-google">Mesaj Detayı</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                    <br />
+                    <a href="#" class="btn btn-inverse-info">Yeni Mesaj Oluştur</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
