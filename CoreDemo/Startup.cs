@@ -32,14 +32,15 @@ namespace CoreDemo
             services.AddSession();
 
             //bu kod projedeki sayfalara oturum açmadan eriþmeyi engeller
-            services.AddMvc(config=> {
+            services.AddMvc(config =>
+            {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
 
             //bu kod sisteme giriþ giriþ yapýlarak eriþilebilecek olan sayfalara , giriþ yapmadan eriþmek istersek bizi doðrudan login sayfasýna yönlendirir. 
             services.AddMvc();
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x=> { x.LoginPath = "/Login/Index"; });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x => { x.LoginPath = "/Login/Index"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,7 +58,7 @@ namespace CoreDemo
             }
 
             //bu kod projenin çalýþmasý sýrasýnda oluþabilcek herhangi bir hata koduna karþýn bizi bir error sayfasýna yönlendiriyor
-            app.UseStatusCodePagesWithReExecute("/ErrorPage/Error1","?code={0}");
+            app.UseStatusCodePagesWithReExecute("/ErrorPage/Error1", "?code={0}");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -74,6 +75,12 @@ namespace CoreDemo
 
             app.UseEndpoints(endpoints =>
             {
+                //oluþturduðumuz area yý çalýþtýrmak için böyle bir endpoind tanýmladýk bu yapýyý area oluþunda sistem bize kendi scaffoldingReadme.txt diye bir dosyaya yazýyor ordan kopyala yapýþtýrla buraya yazýyoruz
+                  endpoints.MapControllerRoute(
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

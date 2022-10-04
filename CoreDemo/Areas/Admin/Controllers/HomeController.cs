@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace CoreDemo.Areas.Admin.Controllers
 {
-    //oluşturduğumuz areada çağırılan controllerin çalışa bilmesi için area ttiributunu almaları gerekmektedir
-    //area nedir araştır
-    [Area("Admin")]
-    public class CategoryController : Controller
+    public class HomeController : Controller
     {
         public IActionResult Index()
         {
