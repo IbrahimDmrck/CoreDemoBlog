@@ -14,7 +14,7 @@ namespace CoreDemo.ViewComponents.Writer
 
         public IViewComponentResult Invoke()
         {
-            int id = 2;
+            int id = 1;
             var values = message2Manager.GetInboxListByWriter(id);
             return View(values);
         }

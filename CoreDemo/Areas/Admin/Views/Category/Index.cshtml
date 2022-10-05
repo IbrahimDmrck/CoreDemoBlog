@@ -1,11 +1,35 @@
-﻿
+﻿@using EntityLayer.Concrete
+@model List<Category>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
-<h1>Index</h1>
+<table  class="table table-hover">
+    <thead class=" bg-gradient-danger">
+        <tr>
+            <th>#</th>
+            <th>Kategori Adı</th>
+            <th>Aktif Yap</th>
+            <th>Pasif Yap</th>
+            <th>Düzenle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="bg-gradient-danger"><b>@item.CategoryID</b></td>
+                <td>@item.CategoryName</td>
+                <td><button class="btn btn-outline-info">Aktif Yap</button></td>
+                <td><button class="btn btn-outline-danger">Pasif Yap</button></td>
+                <td><button class="btn btn-outline-warning">Düzenle</button></td>
+
+            </tr>
+        }
+    </tbody>
+
+</table>
 <br />
-<br />
-<h2>Merhaba Area</h2>
+<a href="#" class="btn btn-info">Yeni Mesaj Oluştur</a>
 
