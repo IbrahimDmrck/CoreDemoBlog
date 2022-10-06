@@ -1,11 +1,13 @@
-﻿@using EntityLayer.Concrete
-@model List<Blog>
+﻿
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<EntityLayer.Concrete.Blog>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/UserLayout.cshtml";
 }
 
-
+<link href="/css/PagedList.css" rel="stylesheet" type="text/css" />
 
 <section class="main-content-w3layouts-agileits">
     <div class="container">
@@ -16,44 +18,44 @@
                 <div class="row">
                     @foreach (var item in Model)
                     {
-                        <div class="col-lg-4 card mb-3">
-                            <a href="/Blog/BlogReadAll/@item.BlogID">
-                                <img src="@item.BlogImage" class="card-img-top img-fluid" alt="">
+            <div class="col-lg-4 card mb-3">
+                <a href="/Blog/BlogReadAll/@item.BlogID">
+                    <img src="@item.BlogImage" class="card-img-top img-fluid" alt="">
+                </a>
+                <div class="card-body">
+                    <ul class="blog-icons my-4">
+                        <li>
+                            <a href="#">
+                                <i class="far fa-calendar-alt"></i> @(((DateTime) item.BlogCreateDate).ToString("dd.MM.yyyy-HH:mm"))
                             </a>
-                            <div class="card-body">
-                                <ul class="blog-icons my-4">
-                                    <li>
-                                        <a href="#">
-                                            <i class="far fa-calendar-alt"></i> @(((DateTime) item.BlogCreateDate).ToString("dd.MM.yyyy-HH:mm"))
-                                        </a>
-                                    </li>
-                                    <li class="mx-0">
-                                        <a href="#">
-                                            <i class="far fa-comment"></i>21
-                                        </a>
-                                    </li>
-                                    <li>
+                        </li>
+                        <li class="mx-0">
+                            <a href="#">
+                                <i class="far fa-comment"></i>21
+                            </a>
+                        </li>
+                        <li>
 
-                                        <a href="#">
-                                            <i class="fas fa-eye"></i>@item.Category.CategoryName
-                                        </a>
-                                    </li>
+                            <a href="#">
+                                <i class="fas fa-eye"></i>@item.Category.CategoryName
+                            </a>
+                        </li>
 
-                                </ul>
-                                <h5 class="card-title">
-                                    <a href="/Blog/BlogReadAll/@item.BlogID">@item.BlogTitle</a>
-                                </h5>
-                                <p class="card-text mb-3">
-                                    @(item.BlogContent.Length > 150 ? item.BlogContent.Substring(0, item.BlogContent.Substring(0,155).LastIndexOf(" "))+"..." : item.BlogContent + "...")
-                                    @*@item.BlogContent.Substring(0, item.BlogContent.Substring(0, 100).LastIndexOf(" "))
-                                </p>*@
-                            <a href="/Blog/BlogReadAll/@item.BlogID" class="btn btn-primary read-m">Devamını Oku</a>
-                        </div>
-                    </div>
-                }
+                    </ul>
+                    <h5 class="card-title">
+                        <a href="/Blog/BlogReadAll/@item.BlogID">@item.BlogTitle</a>
+                    </h5>
+                    <p class="card-text mb-3">
+                        @(item.BlogContent.Length > 150 ? item.BlogContent.Substring(0, item.BlogContent.Substring(0,155).LastIndexOf(" "))+"..." : item.BlogContent + "...")
+                        @*@item.BlogContent.Substring(0, item.BlogContent.Substring(0, 100).LastIndexOf(" "))
+                </p>*@
+                        <a href="/Blog/BlogReadAll/@item.BlogID" class="btn btn-primary read-m">Devamını Oku</a>
+                </div>
+            </div>}
 
 
 
+                @Html.PagedListPager((IPagedList)Model,page=>Url.Action("Index",new { page}))
                 </div>
                 <!--//left-->
             </div>

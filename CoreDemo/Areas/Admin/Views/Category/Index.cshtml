@@ -6,33 +6,65 @@
     Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
-<table  class="table table-hover">
+<table class="table table-hover">
     <thead class=" bg-gradient-danger">
         <tr>
             <th>#</th>
             <th>Kategori Adı</th>
-            <th>Aktif Yap</th>
-            <th>Pasif Yap</th>
+            <th>Sil</th>
             <th>Düzenle</th>
         </tr>
     </thead>
-    <div><tbody>
+    <tbody>
         @foreach (var item in Model)
         {
             <tr>
                 <td class="bg-gradient-danger"><b>@item.CategoryID</b></td>
                 <td>@item.CategoryName</td>
-                <td><button class="btn btn-outline-info">Aktif Yap</button></td>
-                <td><button class="btn btn-outline-danger">Pasif Yap</button></td>
+                <td><a href="/Admin/Category/CategoryDelete/@item.CategoryID" id="deletebtn"  class="btn btn-outline-danger Sil">SİL</a></td>
                 <td><button class="btn btn-outline-warning">Düzenle</button></td>
 
             </tr>
         }
-    </tbody></div>
+    </tbody>
 
 </table>
 <br />
-<a href="#" class="btn btn-info">Yeni Mesaj Oluştur</a>
+<a href="/Admin/Category/AddCategory" class="btn btn-outline-primary mb-3">Yeni Kategori Ekle</a>
 
-@Html.PagedListPager((IPagedList)Model,page=>Url.Action("Index",new { page}))
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+
+
+<script>
+
+    $('.Sil').click(function (e) {
+        e.preventDefault();
+        var linkURL = $(this).attr("href");
+        Swal.fire({
+            title: 'UYARI!',
+            text: "Bu kategoriyi silmek istediğinize emin misiniz?",
+            icon: 'warning',
+            showCancelButton: true,
+            showCancelButton: true,
+            confirmButtonColor: '#5CBA6C',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Evet',
+            cancelButtonText: 'Hayır'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = linkURL;
+                Swal.fire(
+                    'Başarılı!',
+                    'Seçilen Kategori Silindi .',
+                    'success'
+                )
+            }
+            else if (result.dismiss === Swal.DismissReason.cancel) {
+            }
+        })
+    });
+
+
+
+</script>
 

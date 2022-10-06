@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace CoreDemo.Controllers
 {
@@ -20,9 +21,9 @@ namespace CoreDemo.Controllers
         BlogManager blogManager = new BlogManager(new EfBlogRepository());
         BlogContext context = new BlogContext();
 
-        public IActionResult Index()
+        public IActionResult Index(int page=1)
         {
-            var values = blogManager.GetBlogListWithCategory();
+            var values = blogManager.GetBlogListWithCategory().ToPagedList(page,6);
             return View(values);
         }
 
