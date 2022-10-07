@@ -18,6 +18,7 @@ namespace CoreDemo.Areas.Admin.ViewComponents.Statistic
             ViewBag.BlogCount = blogManager.GetList().Count();
             ViewBag.ContactCount = context.Contacts.Count();
             ViewBag.CommentCount = context.Comments.Count();
+            ViewBag.LastBLog = context.Blogs.OrderByDescending(x => x.BlogID).Select(x => x.BlogTitle).Take(1).FirstOrDefault();
             return View();
         }
     }
