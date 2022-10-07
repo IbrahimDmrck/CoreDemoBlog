@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAccess.Concrete;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,15 +9,14 @@ namespace CoreDemo.Areas.Admin.ViewComponents.Statistic
 {
     public class Statistic2 : ViewComponent
     {
-        //BlogManager blogManager = new BlogManager(new EfBlogRepository());
-        //BlogContext context = new BlogContext();
-        //public IViewComponentResult Invoke()
-        //{
-        //    ViewBag.BlogCount = blogManager.GetList().Count();
-        //    ViewBag.ContactCount = context.Contacts.Count();
-        //    ViewBag.CommentCount = context.Comments.Count();
-        //    ViewBag.LastBLog = context.Blogs.OrderByDescending(x => x.BlogID).Select(x => x.BlogTitle).Take(1).FirstOrDefault();
-        //    return View();
-        //}
+
+        BlogContext context = new BlogContext();
+        public IViewComponentResult Invoke()
+        {
+            ViewBag.AdminName = context.Admins.Where(x => x.AdminID == 1).Select(x => x.Name).FirstOrDefault();
+            ViewBag.AdminDescription = context.Admins.Where(x => x.AdminID == 1).Select(x => x.ShortDescription).FirstOrDefault();
+            ViewBag.AdminImg = context.Admins.Where(x => x.AdminID == 1).Select(x => x.ImageURL).FirstOrDefault();
+            return View();
+        }
     }
 }
