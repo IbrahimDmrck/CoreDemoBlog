@@ -29,7 +29,7 @@ namespace CoreDemo.Controllers
         {
             comment.CommentDate = DateTime.Parse(DateTime.Now.ToShortDateString());
             comment.CommentStatus = true;
-            comment.BlogID = 3;
+            comment.BlogID = 2;
             commentManager.TAdd(comment);
             return PartialView();
         }

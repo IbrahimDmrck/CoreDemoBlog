@@ -107,7 +107,6 @@ namespace CoreDemo.Areas.Admin.Controllers
             }
             return blogModel2;
         }
-
         public IActionResult BlogTitleListExcel()
         {
             return View();
