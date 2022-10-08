@@ -17,11 +17,42 @@
         <div class="widget style1 navy-bg">
             <div class="row">
                 <div class="col-4">
-                    <i class="fa fa-cloud fa-5x"></i>
+
+                    @if (ViewBag.WeatherStatus == "parçalı bulutlu")
+                    {
+                        <img src="~/admin/img/sunbehind.ico" width="64" height="64" />
+                    }
+                    else if (ViewBag.WeatherStatus == "kapalı")
+                    {
+                        <img src="~/admin/img/cloud.ico" width="64" height="64" />
+                       
+                    }
+                    else if (ViewBag.WeatherStatus == "az bulutlu")
+                    {
+                        <img src="~/admin/img/sunbehind.ico" width="64" height="64" />
+                    }
+                    else if (ViewBag.WeatherStatus == "parçalı az bulutlu")
+                    {
+                        <img src="~/admin/img/sunbehind.ico" width="64" height="64" />
+                    }
+                    else if (ViewBag.WeatherStatus == "açık")
+                    {
+                        <img src="~/admin/img/sun.ico" width="64" height="64" />
+                    }
+                    else if (ViewBag.WeatherStatus == "karlı")
+                    {
+                        <img src="~/admin/img/snow.ico" width="64" height="64" />
+                    }
+                    else if (ViewBag.WeatherStatus == "hafif yağmur")
+                    {
+                        <img src="~/admin/img/rain.ico" width="64" height="64" />
+                    }
+
+                    @*<i class="bi bi-cloud-rain"></i>*@
                 </div>
                 <div class="col-8 text-right">
-                    <span> Today degrees </span>
-                    <h2 class="font-bold">26'C</h2>
+                    <span> Yalova'da Hava' </span>
+                    <h2 class="font-bold">@ViewBag.Weather</h2>
                 </div>
             </div>
         </div>
