@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h1>Yazar ajax işlemleri</h1>
+
+<button type="button" id="btngetlist" class="btn btn-outline-primary">Yazar Listesi</button>
+<button type="button" id="btngetbyid" class="btn btn-outline-success">Yazar Listesi</button>
+<br />
+<br />
+<div id="writerlist"></div>
+<div id="writerGet"></div>
+<div>
+    <input type="text"  id="writerId" class="form-control" placeholder="getirilecek yazarın ID değerini girin"/>
+</div>
+
+@section scripts{ //section yazmamızın nedeni layout sayfasında bu sectionu çağırabilmek içindir script yazan yer de bu sectionun adıdır
+    <script>
+        //bu script te ajax ile model klasöründe ki modelden ver içekerek bu verileri html tablosu halinde sayfada gösterdik
+        $('#btngetlist').click(function () {
+            $.ajax({
+                contentType: "application/json",
+                dataType: "json",
+                type: "Get",
+                url: "/Admin/Writer/WriterList/",
+                success: function (func) {
+                    let writer = jQuery.parseJSON(func);
+                    console.log(func);
+                    let tableHtml = "<table class='table table-hover'> <thead> <tr> <th>Yazar ID</th> <th>Yazar Adı</th> </tr> </thead>";
+                    $.each(writer, (index, value) => {
+                        tableHtml += `<tbody> <tr> <td>${value.ID}</td>  <td>${value.Name}</td> </tr> </tbody>`
+                    });
+                    tableHtml += "</table>";
+                    $("#writerlist").html(tableHtml);
+                }
+            });
+        });
+
+        $("#btngetbyid").click(function () {
+            let writerId = $("#writerId").val();
+            console.log(writerId);
+            $.ajax({
+                contentType: "application/json",
+                dataType: "json",
+                type: "Get",
+                url: "/Admin/Writer/GetWriterByID/",
+                data: { writerId: writerId },
+                success: function (func) {
+                    let writer = jQuery.parseJSON(func);
+                    console.log(writer);
+
+                   
+
+                    let writerOnTable = `<table class='table table-hover'> <thead> <tr> <th>Yazar ID</th> <th>Yazar Adı</th> </tr> </thead> <tbody> <tr> <td>${writer.ID}</td>  <td>${writer.Name}</td> </tr> </tbody> </table>`;
+
+                    $("#writerGet").html(writerOnTable);
+                }
+            });
+        })
+    </script>
+}
