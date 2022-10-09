@@ -7,14 +7,40 @@
 <h1>Yazar ajax işlemleri</h1>
 
 <button type="button" id="btngetlist" class="btn btn-outline-primary">Yazar Listesi</button>
-<button type="button" id="btngetbyid" class="btn btn-outline-success">Yazar Listesi</button>
+<button type="button" id="btngetbyid" class="btn btn-outline-success">Yazar Getir</button>
+<button type="button" id="btnaddwriter" class="btn btn-outline-info">Yazar Ekle</button>
+<button type="button" id="btndeletewriter" class="btn btn-outline-danger">Yazar Sil</button>
+<button type="button" id="btnupdateewriter" class="btn btn-outline-warning">Yazar Güncelle</button>
 <br />
 <br />
 <div id="writerlist"></div>
 <div id="writerGet"></div>
 <div>
-    <input type="text"  id="writerId" class="form-control" placeholder="getirilecek yazarın ID değerini girin"/>
+    <input type="text" id="writerId" class="form-control" placeholder="getirilecek yazarın ID değerini girin" />
 </div>
+<br />
+<br />
+<br />
+<br />
+<div>
+    <h1>yazar ekle</h1>
+    <input type="text" id="txtwriterid" class="form-control" placeholder="Yazar ID" /><br />
+    <input type="text" id="txtwritername" class="form-control" placeholder="Yazar Adı" />
+</div>
+<br />
+<div>
+    <h3>yazar sil</h3>
+    <input type="text" id="txtid" class="form-control" placeholder="Yazar ID" /><br />
+</div>
+<br />
+<div>
+    <h3>yazar güncelle</h3>
+    <input type="text" id="id" class="form-control" placeholder="Güncellenecek Yazar ID" />
+    <input type="text" id="writername" class="form-control" placeholder="Güncellenecek Yazar Adı" />
+    <br />
+</div>
+
+
 
 @section scripts{ //section yazmamızın nedeni layout sayfasında bu sectionu çağırabilmek içindir script yazan yer de bu sectionun adıdır
     <script>
@@ -51,13 +77,58 @@
                     let writer = jQuery.parseJSON(func);
                     console.log(writer);
 
-                   
-
                     let writerOnTable = `<table class='table table-hover'> <thead> <tr> <th>Yazar ID</th> <th>Yazar Adı</th> </tr> </thead> <tbody> <tr> <td>${writer.ID}</td>  <td>${writer.Name}</td> </tr> </tbody> </table>`;
 
                     $("#writerGet").html(writerOnTable);
                 }
             });
         })
+
+        $("#btnaddwriter").click(function () {
+            let writer = {
+                Id: $("#txtwriterid").val(),
+                Name: $("#txtwritername").val()
+            };
+
+            $.ajax({
+                type: "post",
+                url: "/Admin/Writer/AddWriter/",
+                data: writer,
+                success: function (func) {
+
+                    let result = jQuery.parseJSON(func);
+                    alert("Yazar Ekleme İşlemi Başarılı Bİr şekilde Gerçekleşti");
+                }
+            });
+        });
+
+        $("#btndeletewriter").click(x => {
+            let id = $("#txtid").val();
+            $.ajax({
+                url: "/Admin/Writer/DeleteWriter/",
+                type: "post",
+                dataType: "json",
+                success: function (func) {
+                    alert("Yazar Silme İşlemi Başarılı Bİr şekilde Gerçekleşti");
+                }
+
+            });
+        });
+
+        $("#btnupdateewriter").click(function () {
+            let writer = {
+                Id: $("#id").val(),
+                Name: $("#writername").val()
+            };
+
+            $.ajax({
+                type: "post",
+                url: "/Admin/Writer/UpdateWriter/",
+                data: writer,
+                success: function (func) {
+                    alert("Güncelleme Yapıldı");
+                }
+            });
+        });
     </script>
 }
