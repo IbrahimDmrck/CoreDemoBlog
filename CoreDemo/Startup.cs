@@ -1,3 +1,5 @@
+using DataAccess.Concrete;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -26,6 +28,16 @@ namespace CoreDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddDbContext<BlogContext>();
+            services.AddIdentity<AppUser, AppRole>(x=> 
+            {
+                //burada yazýlan kodlar bizim microsoftun identitiy yapýsýný eklediðimiz projemzde kullanýcý kayýt olurken þifrelerinde otomatik olarak
+                //büyük küçük harf ve rakamlardan oluþma þartý getiriyor biz ise bu þartý burada yazdýðýmýz kodlaral kaldýrýyoruz
+                x.Password.RequireUppercase = false;
+                x.Password.RequireNonAlphanumeric = false;
+            }).AddEntityFrameworkStores<BlogContext>();
+
             services.AddControllersWithViews();
 
             ////bu kod kullanýcýnýn oturum açmasýnda kullanýlýr
