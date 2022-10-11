@@ -1,4 +1,5 @@
 ﻿using EntityLayer.Concrete;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete
 {
-    public class BlogContext : DbContext
+    public class BlogContext : IdentityDbContext<AppUser>
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -29,6 +30,8 @@ namespace DataAccess.Concrete
 
             modelBuilder.Entity<Message2>().HasOne(x => x.ReceiverUser)
                .WithMany(y => y.WriterReceiver).HasForeignKey(z => z.ReceiverID).OnDelete(DeleteBehavior.ClientSetNull);
+
+            base.OnModelCreating(modelBuilder);
 
             //HomeMatches-->WriterSender
             //AwayMatches-->WriterReceiver
