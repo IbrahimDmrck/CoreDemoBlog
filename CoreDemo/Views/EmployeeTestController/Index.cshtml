@@ -1,0 +1,35 @@
+﻿@using CoreDemo.Controllers
+@model List<Class1>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h1>Çalışanlar</h1>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Sil</th>
+            <th scope="col">Düzenle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.Name</td>
+                <td scope="col"><a href="#" class="btn btn-danger">Sİl</a></td>
+                <td><a href="#" class="btn btn-success">Düzenle</a></td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+<br />
+<a href="/EmployeeTest/AddEmployee" class="btn btn-outline-primary">Yeni çalışan Ekle</a>
+
