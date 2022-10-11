@@ -10,10 +10,10 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Sil</th>
-            <th scope="col">Düzenle</th>
+            <th scope="row">ID</th>
+            <th scope="row">Name</th>
+            <th scope="row">Sil</th>
+            <th scope="row">Düzenle</th>
         </tr>
     </thead>
     <tbody>
@@ -23,8 +23,8 @@
             <tr>
                 <td>@item.ID</td>
                 <td>@item.Name</td>
-                <td scope="col"><a href="#" class="btn btn-danger">Sİl</a></td>
-                <td><a href="#" class="btn btn-success">Düzenle</a></td>
+                <td ><a href="/EmployeeTest/DeleteEmployee/@item.ID" class="btn btn-danger">Sİl</a></td>
+                <td><a href="/EmployeeTest/EditEmployee/@item.ID" class="btn btn-success">Düzenle</a></td>
             </tr>
 
         }
@@ -32,4 +32,7 @@
 </table>
 <br />
 <a href="/EmployeeTest/AddEmployee" class="btn btn-outline-primary">Yeni çalışan Ekle</a>
+
+
+
 
