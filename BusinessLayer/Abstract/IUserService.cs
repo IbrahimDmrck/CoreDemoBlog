@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Abstract
 {
-    public interface IUserService:IGenericService<AppUser>
+    public interface IUserService : IGenericService<AppUser>
     {
+         List<AppUser> GetReceiverUsersList();
+
     }
 }

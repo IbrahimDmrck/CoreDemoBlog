@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/WriterLayout.cshtml";
 }
 @Html.HiddenFor(x=>x.MessageID)
-@Html.Label("Gönderen : ")<a class="btn btn-google text-xl-center"><b> @ViewBag.SenderName</b></a>
+@Html.Label("Gönderen : ")<a class="btn btn-google text-xl-center"><b> @Html.TextBoxFor(x=>x.SenderUser.WriterName)</b></a>
 <br />
 
 @Html.Label("Konu :")

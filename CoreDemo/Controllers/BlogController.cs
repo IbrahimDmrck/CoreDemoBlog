@@ -36,8 +36,11 @@ namespace CoreDemo.Controllers
 
         public IActionResult BlogListByWriter()
         {
-            var userMail = User.Identity.Name;
+
+            var userName = User.Identity.Name;
+            var userMail = context.Users.Where(x => x.UserName == userName).Select(y => y.Email).FirstOrDefault();
             var WriterId = context.Writers.Where(x => x.WriterMail == userMail).Select(y => y.WriterID).FirstOrDefault();
+
             var values = blogManager.GetListWithCategoryByWriterBlogManager(WriterId);
             return View(values);
         }
@@ -64,8 +67,10 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult BlogAdd(Blog blog)
         {
-            var userMail = User.Identity.Name;
+            var userName = User.Identity.Name;
+            var userMail = context.Users.Where(x => x.UserName == userName).Select(y => y.Email).FirstOrDefault();
             var WriterId = context.Writers.Where(x => x.WriterMail == userMail).Select(y => y.WriterID).FirstOrDefault();
+
             BlogValidator blogValidator = new BlogValidator();
             ValidationResult result = blogValidator.Validate(blog);
 
@@ -107,9 +112,9 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult EditBlog(Blog blog)
         {
-            var userMail = User.Identity.Name;
+            var userName = User.Identity.Name;
+            var userMail = context.Users.Where(x => x.UserName == userName).Select(y => y.Email).FirstOrDefault();
             var WriterId = context.Writers.Where(x => x.WriterMail == userMail).Select(y => y.WriterID).FirstOrDefault();
-            blogManager.TUpdate(blog);
             blog.WriterID = WriterId;
             return RedirectToAction("BlogListByWriter","Blog");
         }

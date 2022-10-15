@@ -25,7 +25,14 @@ namespace BusinessLayer.Concrete
 
         public List<AppUser> GetList()
         {
-            return _userDal.GetListAll();
+            return  _userDal.GetListAll();
+        }
+
+        public  List<AppUser> GetReceiverUsersList()
+        {
+           
+                return  _userDal.GetUsersAsync();
+            
         }
 
         public void TAdd(AppUser t)
