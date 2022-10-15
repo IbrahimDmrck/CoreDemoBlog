@@ -1,4 +1,4 @@
-﻿@model EntityLayer.Concrete.Writer
+﻿@model EntityLayer.Concrete.AppUser
 @{
     ViewData["Title"] = "WriterEditProfile";
     Layout = "~/Views/Shared/WriterLayout.cshtml";
@@ -12,35 +12,41 @@
             <div class="card-body">
                 <h4 class="card-title">Yazar Profil</h4>
                 <form class="forms-sample">
-                    @Html.HiddenFor(x => x.WriterID)
+                    @Html.HiddenFor(x => x.Id)
                     <div class="form-group">
                         <label for="exampleInputName1">Ad-Soyad</label>
                         @*<input type="text" class="form-control" id="exampleInputName1" asp-for="WriterName" placeholder="Ad-Soyad">*@
-                        @Html.TextBoxFor(x => x.WriterName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(x => x.WriterName)
+                        @Html.TextBoxFor(x => x.NameSurname, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.NameSurname)
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail3">Email Adresi</label>
                         @*<input type="email" class="form-control" id="exampleInputEmail3" asp-for="WriterMail" placeholder="Email">*@
-                        @Html.TextBoxFor(x => x.WriterMail, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(x => x.WriterMail)
+                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Email)
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputName1">Kullanıcı Adı</label>
+                        @*<input type="text" class="form-control" id="exampleInputName1" asp-for="WriterName" placeholder="Ad-Soyad">*@
+                        @Html.TextBoxFor(x => x.UserName, new { @class = "form-control" })
+                       
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword4">Şifre</label>
                         @*<input type="password" class="form-control" id="exampleInputPassword4" asp-for="WriterPassword" placeholder="Password">*@
-                        @Html.PasswordFor(x => x.WriterPassword, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(x => x.WriterPassword)
+                        @Html.PasswordFor(x => x.PasswordHash, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.PasswordHash)
                     </div>
                     <div class="form-group">
                         <label>Profil Fotoğrafı</label>
                         <input type="file" name="WriterImage">
-                       
+
                     </div>
-                    <div class="form-group">
-                        <label for="exampleTextarea1">Yazar Hakkında</label>
+                    <!--<div class="form-group">
+                        <label for="exampleTextarea1">Yazar Hakkında</label>-->
                         @*<textarea class="form-control" id="exampleTextarea1" asp-for="WriterAbout" rows="4"></textarea>*@
-                        @Html.TextAreaFor(x => x.WriterAbout, 10, 3, new { @class = "form-control" })
-                    </div>
+                        @*@Html.TextAreaFor(x => x.WriterAbout, 10, 3, new { @class = "form-control" })*@
+                    <!--</div>-->
                     <button type="submit" class="btn btn-gradient-primary mr-2">Güncelle</button>
                     <button class="btn btn-light">İptal</button>
                 </form>

@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public interface ICommentDal:IGenericDal<Comment>
+    public interface IUserDal:IGenericDal<AppUser>
     {
-        List<Comment> GetListWithCommentByBlog();
     }
 }

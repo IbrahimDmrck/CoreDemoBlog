@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CoreDemo.Controllers
 {
-    //[AllowAnonymous]
+    [AllowAnonymous]
     public class NewsLetterController : Controller
     {
         NewsLetterManager newsLetterManager = new NewsLetterManager(new EfNewsLetterRepository());
@@ -22,7 +22,7 @@ namespace CoreDemo.Controllers
         }
 
         [HttpPost]
-        public PartialViewResult SubscribeMail(NewsLetter newsLetter)
+        public IActionResult SubscribeMail(NewsLetter newsLetter)
         {
 
             newsLetter.MailStatus = true;

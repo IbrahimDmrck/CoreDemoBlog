@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Abstract
+namespace BusinessLayer.Abstract
 {
-    public interface ICommentDal:IGenericDal<Comment>
+    public interface IUserService:IGenericService<AppUser>
     {
-        List<Comment> GetListWithCommentByBlog();
     }
 }
