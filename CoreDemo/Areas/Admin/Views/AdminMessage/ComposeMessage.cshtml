@@ -1,0 +1,102 @@
+﻿@model EntityLayer.Concrete.Message2
+@{
+    ViewData["Title"] = "ComposeMessage";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-3">
+        <div class="ibox ">
+            <div class="ibox-content mailbox-content">
+                <div class="file-manager">
+                    <a class="btn btn-block btn-primary compose-mail" href="#">Mesaj Oluştur</a>
+                    <div class="space-25"></div>
+                    <h5>Klasörler</h5>
+                    <ul class="folder-list m-b-md" style="padding: 0">
+                        <li><a href="/Admin/AdminMessage/InBox"> <i class="fa fa-inbox "></i> Gelen kutusu <span class="label label-warning float-right">0</span> </a></li>
+                        <li><a href="/Admin/AdminMessage/SendBox"> <i class="fa fa-envelope-o"></i> Gelen Kutusu</a></li>
+                        <li><a href="mailbox.html"> <i class="fa fa-certificate"></i> Önemli</a></li>
+                        <li><a href="mailbox.html"> <i class="fa fa-file-text-o"></i> Taslaklar <span class="label label-danger float-right">0</span></a></li>
+                        <li><a href="mailbox.html"> <i class="fa fa-trash-o"></i> Çöp Kutusu</a></li>
+                    </ul>
+                    <h5>Kategoriler</h5>
+                    <ul class="category-list" style="padding: 0">
+                        <li><a href="#"> <i class="fa fa-circle text-navy"></i> İş </a></li>
+                        <li><a href="#"> <i class="fa fa-circle text-danger"></i> Belge</a></li>
+                        <li><a href="#"> <i class="fa fa-circle text-primary"></i> Sosyal</a></li>
+                        <li><a href="#"> <i class="fa fa-circle text-info"></i> Tanıtım</a></li>
+                        <li><a href="#"> <i class="fa fa-circle text-warning"></i> Yıldızlı</a></li>
+                    </ul>
+
+                    <h5 class="tag-title">Alanlar</h5>
+                    <ul class="tag-list" style="padding: 0">
+                        <li><a href=""><i class="fa fa-tag"></i> Aile</a></li>
+                        <li><a href=""><i class="fa fa-tag"></i> İş</a></li>
+                        <li><a href=""><i class="fa fa-tag"></i> Ev</a></li>
+                        <li><a href=""><i class="fa fa-tag"></i> Çocuklar</a></li>
+                        <li><a href=""><i class="fa fa-tag"></i> Tatil</a></li>
+                        <li><a href=""><i class="fa fa-tag"></i> Müzik</a></li>
+                        <li><a href=""><i class="fa fa-tag"></i> Fotoğraf</a></li>
+                        <li><a href=""><i class="fa fa-tag"></i> Film</a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-9 animated fadeInRight">
+        <div class="mail-box-header">
+            <div class="float-right tooltip-demo">
+                <a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Taslak Oluştur"><i class="fa fa-pencil"></i> Taslak Oluştur</a>
+                <a href="mailbox.html" class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="Vazgeç"><i class="fa fa-times"></i> Vazgeç</a>
+            </div>
+            <h2>
+                Yeni Mesaj
+            </h2>
+        </div>
+        <div class="mail-box">
+
+
+
+            @using (Html.BeginForm("ComposeMessage", "AdminMessage", FormMethod.Post))
+            {
+
+                <div class="mail-body">
+
+                    <label for="ReceiverID">Alıcı Seçimi</label>
+                    @Html.DropDownListFor(x => x.ReceiverID, (List<SelectListItem>)ViewBag.RecieverUser, new { @class = "form-control" })
+
+                    <br />
+                    @Html.Label("Konu")
+                    @Html.TextBoxFor(x => x.Subject, new { @class = "form-control" })
+
+                    <br />
+
+                    @Html.Label("Mesajınız")
+                    @Html.TextAreaFor(x => x.MessageDetails, 5, 10, new { @class = "form-control" })
+
+                    <br />
+                    <button class="btn btn-success">Mesajı Gönder</button>
+                    
+
+                </div>
+
+
+
+                <div class="clearfix"></div>
+
+                <div class="mail-body text-right tooltip-demo">
+                    <button class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Gönder"><i class="fa fa-reply"></i> Gönder</button>
+                    <input class="btn btn-white btn-sm" type="reset" value="Vazgeç" data-toggle="tooltip" data-placement="top" title="Vazgeç"><i class="fa fa-times"></i> 
+                    <a href="#" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Taslaklara Ekle"><i class="fa fa-pencil"></i> Taslaklara Kaydaet</a>
+                </div>
+                <div class="clearfix"></div>
+
+            }
+
+            </div>
+    </div>
+</div>
+

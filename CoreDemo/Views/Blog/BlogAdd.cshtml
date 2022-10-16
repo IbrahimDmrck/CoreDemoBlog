@@ -23,11 +23,40 @@
     @Html.DropDownListFor(x => x.CategoryID, (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control" })
     @Html.ValidationMessageFor(x => x.CategoryID, "", new { @style = "color:red" })
     <br />
-    @Html.Label("Blog İçeriği")
-    @Html.TextAreaFor(x => x.BlogContent, 5, 10, new { @class = "form-control" })
+    @Html.Label("Blog İçeriği - ")
+      <span id="feedback" style="color:red;"></span>
+    @Html.TextAreaFor(x => x.BlogContent, 5, 10, new { @class = "form-control",@id= "textarea" })
     @Html.ValidationMessageFor(x => x.BlogContent, "", new { @style = "color:red" })
-    <br />
+     <br />
+     
     <button class="btn btn-success">Oluştur</button>
 
 }
 
+@*<textarea id="textarea" rows="8" cols="50" maxlength="100" ></textarea>*@
+  
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var count = 0;
+        $('#feedback').html(count + " " + 'Karakter girdiniz');
+
+        $('#textarea').keyup(function () {
+            var text_length = $('#textarea').val().length;
+            var text_count = count + text_length;
+
+            $('#feedback').html(text_count +' Karakter girdiniz');
+        });
+    });
+
+    //$('textarea').keypress(function () {
+
+    //    if (this.value.length > 160) {
+    //        return false;
+    //    }
+
+    //    $("#remainingC").html("Remaining characters : " + (160 - this.value.length));
+    //});
+</script>

@@ -29,7 +29,8 @@
     @Html.DropDownListFor(x => x.CategoryID, (List<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control" })
     <br />
     @Html.Label("Blog İçeriği")
-    @Html.TextBoxFor(x => x.BlogContent, new { @class = "form-control" })
+      <span id="feedback" style="color:red;"></span>
+    @Html.TextAreaFor(x => x.BlogContent, 5, 10, new { @class = "form-control",@id= "textarea" })
     @Html.ValidationMessageFor(x => x.BlogContent, "", new { @style = "color:red" })
     <br />
     <br />
@@ -38,4 +39,18 @@
 
 
 }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var count = 0;
+        $('#feedback').html(count + " " + 'Karakter girdiniz');
+
+        $('#textarea').keyup(function () {
+            var text_length = $('#textarea').val().length;
+            var text_count = count + text_length;
+
+            $('#feedback').html(text_count + ' Karakter girdiniz');
+        });
+    });
+</script>
 
