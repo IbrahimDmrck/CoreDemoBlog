@@ -6,7 +6,7 @@
     @foreach (var item in Model)
     {
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item preview-item">
+        <a href="/Message/MessageDetails/@item.MessageID" class="dropdown-item preview-item">
             <div class="preview-thumbnail">
                 <img src="@item.SenderUser.WriterImage" alt="image" class="profile-pic">
             </div>

@@ -35,6 +35,11 @@ namespace BusinessLayer.Concrete
             
         }
 
+        public List<AppUser> GetSenderUsersList()
+        {
+            return _userDal.GetUsersAsync();
+        }
+
         public void TAdd(AppUser t)
         {
             _userDal.Insert(t);

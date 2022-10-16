@@ -1,20 +1,19 @@
 ﻿@model EntityLayer.Concrete.Message2
-@{
-    ViewData["Title"] = "MessageDetails";
-    Layout = "~/Views/Shared/WriterLayout.cshtml";
-}
-@Html.HiddenFor(x=>x.MessageID)
-@Html.Label("Gönderen : ")<a class="btn btn-google text-xl-center"><b> @Html.TextBoxFor(x=>x.SenderUser.WriterName)</b></a>
+@{ ViewData["Title"] = "MessageDetails";
+    Layout = "~/Views/Shared/WriterLayout.cshtml"; }
+@Html.HiddenFor(x => x.MessageID)
+@Html.Label("Gönderen : ")
 <br />
-
+@Html.TextBoxFor(x => x.ReceiverID,  new { @class = "form-control readonly"  })
+<br />
 @Html.Label("Konu :")
-@Html.TextBoxFor(x=>x.Subject, new { @class = "form-control", @readonly = "true" })
+@Html.TextBoxFor(x => x.Subject, new { @class = "form-control", @readonly = "true" })
 <br />
 @Html.Label("Mesaj :")
-@Html.TextAreaFor(x=>x.MessageDetails,15,3, new { @class = "form-control", @readonly = "true" })
+@Html.TextAreaFor(x => x.MessageDetails, 15, 3, new { @class = "form-control", @readonly = "true" })
 <br />
 @Html.Label("Gönderilme Tarihi :")
-@Html.TextBoxFor(x=>x.MessageDate, new { @class = "form-control", @readonly = "true" })
+@Html.TextBoxFor(x => x.MessageDate, new { @class = "form-control", @readonly = "true" })
 <br />
 <a href="/Message/Inbox" class="btn btn-inverse-primary">Mesajlara Dön</a>
 

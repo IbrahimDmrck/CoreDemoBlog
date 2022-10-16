@@ -30,7 +30,7 @@
                                     <td class="bg-gradient-danger"><b>@item.MessageID</b></td>
                                     <td>@item.Subject </td>
                                     <td><label class="badge badge-info"> @item.ReceiverUser.WriterName</label></td>
-                                    <td>@(item.MessageDetails.Length > 25 ? item.MessageDetails.Substring(0, item.MessageDetails.Substring(0,27).LastIndexOf(" "))+"..." : item.MessageDetails + "...") </td>
+                                    <td>@item.MessageDetails  @*@(item.MessageDetails.Length > 5 ? item.MessageDetails.Substring(0, item.MessageDetails.Substring(0,27).LastIndexOf(" "))+"..." : item.MessageDetails + "...")*@ </td>
                                     <td>
                                         <label class="badge badge-gradient-dark">@(((DateTime)item.MessageDate).ToString("dd-MM-yyyy"))</label>
                                     </td>

@@ -24,7 +24,15 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (var context = new BlogContext())
             {
-                return context.Message2s.Include(p => p.ReceiverID).Where(x => x.SenderID == id).ToList();
+                return context.Message2s.Include(p => p.ReceiverUser).Where(x => x.SenderID == id).ToList();
+            }
+        }
+
+        public Message2 GetMessageById(int id)
+        {
+            using (var context = new BlogContext())
+            {
+                return context.Message2s.Include(x => x.SenderUser).Include(x => x.ReceiverUser).Where(x => x.MessageID == id).FirstOrDefault();
             }
         }
     }

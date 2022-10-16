@@ -10,6 +10,7 @@ namespace BusinessLayer.Abstract
     public interface IUserService : IGenericService<AppUser>
     {
          List<AppUser> GetReceiverUsersList();
+        List<AppUser> GetSenderUsersList();
 
     }
 }
