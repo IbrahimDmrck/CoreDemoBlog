@@ -1,4 +1,5 @@
-﻿using CoreDemo.Models;
+﻿using CoreDemo.Areas.Admin.Models;
+using CoreDemo.Models;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +14,12 @@ namespace CoreDemo.Areas.Admin.Controllers
     public class AdminRoleController : Controller
     {
         private readonly RoleManager<AppRole> _roleManager;
+        private readonly UserManager<AppUser> _userManager;
 
-        public AdminRoleController(RoleManager<AppRole> roleManager)
+        public AdminRoleController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager)
         {
             _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -92,5 +95,56 @@ namespace CoreDemo.Areas.Admin.Controllers
             }
             return View();
         }
+
+        public IActionResult UserRoleList()
+        {
+            var values = _userManager.Users.ToList();
+            return View(values);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AssignRole(int id)
+        {
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
+            var roles = _roleManager.Roles.ToList();
+
+            TempData["Userid"] = user.Id;
+            var UserRoles = await _userManager.GetRolesAsync(user);
+
+            List<RoleAssignViewModel> model = new List<RoleAssignViewModel>();
+            foreach (var item in roles)
+            {
+                RoleAssignViewModel m = new RoleAssignViewModel();
+                m.RoleID = item.Id;
+                m.Name = item.Name;
+                m.Exists = UserRoles.Contains(item.Name);
+                model.Add(m);
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AssignRole(List<RoleAssignViewModel> model)
+        {
+            var userId = (int)TempData["UserId"];
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == userId);
+            foreach (var item in model)
+            {
+                if (item.Exists)
+                {
+                    await _userManager.AddToRoleAsync(user, item.Name);
+                }
+                else
+                {
+                    await _userManager.RemoveFromRoleAsync(user, item.Name);
+                }
+            }
+
+            return RedirectToAction("UserRoleList", "AdminRole");
+
+        }
+
+
     }
 }
