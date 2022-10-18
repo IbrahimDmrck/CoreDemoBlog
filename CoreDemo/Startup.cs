@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
@@ -53,6 +54,13 @@ namespace CoreDemo
             //bu kod sisteme giriþ giriþ yapýlarak eriþilebilecek olan sayfalara , giriþ yapmadan eriþmek istersek bizi doðrudan login sayfasýna yönlendirir. 
             services.AddMvc();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x => { x.LoginPath = "/Login/Index"; });
+
+
+            //bu kod eriþim olmayan sayfalara gitmek isteyen kullanýcýlarý bir uyarý sayfasýna yönlendirmek için çalýþýr
+            //services.ConfigureApplicationCookie(options  =>
+            //{
+            //    options.AccessDeniedPath = new PathString("/ErrorPage/inde.html");
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,6 +79,7 @@ namespace CoreDemo
 
             //bu kod projenin çalýþmasý sýrasýnda oluþabilcek herhangi bir hata koduna karþýn bizi bir error sayfasýna yönlendiriyor
             app.UseStatusCodePagesWithReExecute("/ErrorPage/Error1", "?code={0}");
+            
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
